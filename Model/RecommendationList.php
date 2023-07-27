@@ -7,12 +7,15 @@ declare(strict_types=1);
 
 namespace SwiftOtter\FriendRecommendations\Model;
 
+use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
 use SwiftOtter\FriendRecommendations\Api\Data\RecommendationListInterface;
 use SwiftOtter\FriendRecommendations\Model\ResourceModel\RecommendationList as RecommendationListResource;
 
-class RecommendationList extends AbstractModel implements RecommendationListInterface
+class RecommendationList extends AbstractModel implements RecommendationListInterface, IdentityInterface
 {
+    const CACHE_TAG = 'reclist';
+
     protected function _construct()
     {
         $this->_init(RecommendationListResource::class);
@@ -58,5 +61,13 @@ class RecommendationList extends AbstractModel implements RecommendationListInte
     public function setNote(string $note): RecommendationListInterface
     {
         return $this->setData('note', $note);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIdentities()
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 }

@@ -27,10 +27,10 @@ interface RecommendationListRepositoryInterface
     /**
      * @throws CouldNotSaveException
      */
-    public function save(RecommendationListInterface $policy): RecommendationListInterface;
+    public function save(RecommendationListInterface $list): RecommendationListInterface;
 
     /**
      * @throws CouldNotDeleteException
      */
-    public function delete(RecommendationListInterface $policy): bool;
+    public function delete(RecommendationListInterface $list): bool;
 }
