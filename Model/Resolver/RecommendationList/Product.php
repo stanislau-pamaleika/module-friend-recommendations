@@ -32,19 +32,8 @@ class Product implements ResolverInterface
             return [];
         }
 
-        $this->productProvider->addListIdFilter($value['id']);
-
         return $this->valueFactory->create(function () use ($value) {
-            $listProducts = $this->productProvider->getAllListProducts();
-            $lists = [];
-            foreach ($listProducts as $listProduct) {
-                $listId = $listProduct['list_id'] ?? null;
-                if ($listId == $value['id']) {
-                    $lists[] = $listProduct;
-                }
-            }
-
-            return $lists;
+            return $this->productProvider->getListProducts((int)$value['id']);
         });
     }
 }
